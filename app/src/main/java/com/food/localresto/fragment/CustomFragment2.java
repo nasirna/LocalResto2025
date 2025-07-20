@@ -19,6 +19,7 @@ import com.food.localresto.util.CurrencyEditText;
 import com.food.localresto.util.DecimalEditText;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +55,9 @@ public class CustomFragment2 extends Fragment {
         priceField2 = (CurrencyEditText) v.findViewById(R.id.food_price2);
         priceField3 = (CurrencyEditText) v.findViewById(R.id.food_price3);
 
-        priceField1.setMaxDecimalDigits(0);
-        priceField2.setMaxDecimalDigits(0);
-        priceField3.setMaxDecimalDigits(0);
+        //priceField1.setMaxDecimalDigits(0);
+        //priceField2.setMaxDecimalDigits(0);
+        //priceField3.setMaxDecimalDigits(0);
 
         if (dataItem != null) {
 
@@ -86,9 +87,9 @@ public class CustomFragment2 extends Fragment {
         //xxx.add(String.valueOf(priceField1.getValue().doubleValue()));
         //xxx.add(String.valueOf(priceField2.getValue().doubleValue()));
         //xxx.add(String.valueOf(priceField3.getValue().doubleValue()));
-        double value1 = priceField1.getNumericValue();
-        double value2 = priceField2.getNumericValue();
-        double value3 = priceField3.getNumericValue();
+        BigDecimal value1 = priceField1.getNumericValue();
+        BigDecimal value2 = priceField2.getNumericValue();
+        BigDecimal value3 = priceField3.getNumericValue();
 
         xxx.add(String.valueOf(value1));
         xxx.add(String.valueOf(value2));

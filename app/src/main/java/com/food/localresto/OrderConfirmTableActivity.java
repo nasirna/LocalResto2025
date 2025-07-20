@@ -98,7 +98,6 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
     public static final String DISC = "disc";
     public static final String FOOTER = "footer";
 
-
     private LinearLayout wrapperSubTotal;
     private LinearLayout wrapperPajak;
     private LinearLayout wrapperDisc;
@@ -109,6 +108,10 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_tabel_confirm);
+
+        CurrencyEditText angka_kedua = findViewById(R.id.angka_kedua);
+        angka_kedua.setMaxDecimalDigits(0);
+        angka_kedua.setCurrencySymbol("");
 
         //bAdapter = BluetoothAdapter.getDefaultAdapter();
         tableSeat = (TextView) findViewById(R.id.tableseat);
@@ -286,6 +289,7 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
         //angka_kedua = findViewById(R.id.angka_kedua);
         //angka_kedua.setOnKeyListener(this);
 
+
         bersihkan = (Button) findViewById(R.id.bersihkan);
         bt_10rb = (Button)findViewById(R.id.bt_10rb);
         bt_50rb = (Button)findViewById(R.id.bt_50rb);
@@ -370,11 +374,11 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
             public void onClick(View view) {
                 //mDatabase.updateProduct(new Product(product.getId(), name, quantity,MenuItemLocalActivity.imageViewToByte(mImageView)));
                 //mDatabase.UpdateHistoryForPaidbyTable(new HistoryObject(orderHistory.get(1).))
-                CurrencyEditText angka_kedua = findViewById(R.id.angka_kedua);
+
 
                 // Get the currency text
 
-                    String currencyText = String.valueOf(angka_kedua.getText());
+                String currencyText = String.valueOf(angka_kedua.getText());
 
 
                 // Get the length of the currency text
@@ -461,14 +465,16 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
             @Override
             public void onClick(View v) {
 
-                //if((angka_pertama.getText().length()>0) && (angka_kedua.getText().length()>0))
-                if((totalNota.getText().length()>0) && (angka_kedua.getText().length()>0))
+                String currencyText = String.valueOf(angka_kedua.getText());
+                int length = currencyText.length();
+
+                if((totalNota.getText().length()>0) && (length>0))
                 //if (totalNota.getText().length()>0)
                 {
                     angka1 = Double.parseDouble(String.valueOf(Total));
 
                     //angka2 = angka_kedua.getValue().doubleValue();
-                    angka2 = Double.parseDouble(angka_kedua.getText().toString());
+                    angka2 = Double.parseDouble(String.valueOf(angka_kedua.getNumericValue()));
 
                     angka2=angka2+10000;
                     result = angka2-angka1;
@@ -492,15 +498,16 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
             @Override
             public void onClick(View v) {
 
-                //if((angka_pertama.getText().length()>0) && (angka_kedua.getText().length()>0))
-                if((totalNota.getText().length()>0) && (angka_kedua.getText().length()>0))
+                String currencyText = String.valueOf(angka_kedua.getText());
+                int length = currencyText.length();
+                if((totalNota.getText().length()>0) && (length>0))
                 //if (totalNota.getText().length()>0)
                 {
                     angka1 = Double.parseDouble(String.valueOf(Total));
                     //double angka2 = Double.parseDouble(angka_kedua.getText().toString());
                     //double angka2 = 0;
                     //angka2 = angka_kedua.getValue().doubleValue();
-                    angka2 = Double.parseDouble(angka_kedua.getText().toString());
+                    angka2 = Double.parseDouble(String.valueOf(angka_kedua.getNumericValue()));
 
                     angka2=angka2+50000;
                     result = angka2-angka1;
@@ -524,15 +531,16 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
             @Override
             public void onClick(View v) {
 
-                //if((angka_pertama.getText().length()>0) && (angka_kedua.getText().length()>0))
-                if((totalNota.getText().length()>0) && (angka_kedua.getText().length()>0))
+                String currencyText = String.valueOf(angka_kedua.getText());
+                int length = currencyText.length();
+                if((totalNota.getText().length()>0) && (length>0))
                 //if (totalNota.getText().length()>0)
                 {
                     angka1 = Double.parseDouble(String.valueOf(Total));
                     //double angka2 = Double.parseDouble(angka_kedua.getText().toString());
                     //double angka2 = 0;
                     //angka2 = angka_kedua.getValue().doubleValue();
-                    angka2 = Double.parseDouble(angka_kedua.getText().toString());
+                    angka2 = Double.parseDouble(String.valueOf(angka_kedua.getNumericValue()));
 
                     angka2=angka2+100000;
                     result = angka2-angka1;
@@ -766,10 +774,32 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
     }
 
     @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        //CurrencyEditText myEditText = (CurrencyEditText) v;
+        if ((event.getAction() == KeyEvent.ACTION_DOWN)
+                && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+
+            if (!event.isShiftPressed()) {
+                Log.v("AndroidEnterKeyActivity","Enter Key Pressed!");
+                switch (v.getId()) {
+                    case R.id.angka_kedua:
+                        double angka1 = Double.parseDouble(String.valueOf(Total));
+                        double d = 0;
+                        d = Double.parseDouble(angka_kedua.getText().toString());
+                        double result = d-angka1;
+                        hasil.setText("Rp " + String.format("%1$,.0f", Float.valueOf((float) result) ));
+                        break;
+                }
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    /*
+    @Override
     public boolean onKey(View view, int keyCode, KeyEvent event) {
-        //return false;
-        //TextView responseText = (TextView) findViewById(R.id.responseText); hasil
-        //EditText myEditText = (EditText) view; angka_kedua
         DecimalEditText myEditText = (DecimalEditText) view;
         if ((event.getAction() == KeyEvent.ACTION_DOWN)
                 && (keyCode == KeyEvent.KEYCODE_ENTER)) {
@@ -778,19 +808,10 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
                 Log.v("AndroidEnterKeyActivity","Enter Key Pressed!");
                 switch (view.getId()) {
                     case R.id.angka_kedua:
-                        /*hasil
-                                .setText("Just pressed the ENTER key, " +
-                                        "focus was on Text Box1. " +
-                                        "You typed:\n" + myEditText.getText());*/
                         double angka1 = Double.parseDouble(String.valueOf(Total));
                         double d = 0;
-                        //d = angka_kedua.getValue().doubleValue();
                         d = Double.parseDouble(angka_kedua.getText().toString());
-                        //double angka2 = Double.parseDouble(angka_kedua.getText().toString());
-
-
                         double result = d-angka1;
-                        //hasil.setText(Double.toString(result));
                         hasil.setText("Rp " + String.format("%1$,.0f", Float.valueOf((float) result) ));
                         break;
                 }
@@ -800,7 +821,7 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
         }
         return false; // pass on to other listeners.
 
-    }
+    }*/
 
     /*class SendEmailTask extends AsyncTask<Void, Void, Void> {
 

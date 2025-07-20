@@ -362,7 +362,10 @@
                     <com.food.localresto.util.CurrencyEditText
                         android:id="@+id/food_price1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:inputType="number"
+                        app:showCurrencySymbol="false"
+                        app:maxDecimalDigits="0"/>
 
 
                     <!--<TextView
@@ -473,7 +476,10 @@
                      <com.food.localresto.util.CurrencyEditText
                          android:id="@+id/food_price2"
                          android:layout_width="match_parent"
-                         android:layout_height="match_parent"/>
+                         android:layout_height="match_parent"
+                         android:inputType="number"
+                         app:showCurrencySymbol="false"
+                         app:maxDecimalDigits="0"/>
 
                      <!--<TextView
                          android:layout_width="wrap_content"
@@ -583,7 +589,10 @@
                      <com.food.localresto.util.CurrencyEditText
                          android:id="@+id/food_price3"
                          android:layout_width="match_parent"
-                         android:layout_height="match_parent"/>
+                         android:layout_height="match_parent"
+                         android:inputType="number"
+                         app:showCurrencySymbol="false"
+                         app:maxDecimalDigits="0"/>
 
                      <!--<TextView
                          android:layout_width="wrap_content"

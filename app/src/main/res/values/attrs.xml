@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="CurrencyEditText">
+        <attr name="currencySymbol" format="string" />
+        <attr name="showCurrencySymbol" format="boolean" />
+        <attr name="maxDecimalDigits" format="integer" />
+        <attr name="displayCurrencySymbol" format="boolean"/>
+    </declare-styleable>
+</resources>

@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2f137fbf12be2d7ef8406d4e65766e51/jetified-library-material-1.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2f137fbf12be2d7ef8406d4e65766e51/jetified-library-material-1.1.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2f137fbf12be2d7ef8406d4e65766e51/jetified-library-material-1.1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ccf26a7778a03d8edabd400e52c5adb3/jetified-library-material-1.1.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ccf26a7778a03d8edabd400e52c5adb3/jetified-library-material-1.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ccf26a7778a03d8edabd400e52c5adb3/jetified-library-material-1.1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.weiwangcn.betterspinner/library-material/1.1.0/678bb48e253bdd94a9f4136e49f958c19eeeed44/library-material-1.1.0-javadoc.jar!/" />
