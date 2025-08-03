@@ -55,6 +55,10 @@ public class CustomFragment2 extends Fragment {
         priceField2 = (CurrencyEditText) v.findViewById(R.id.food_price2);
         priceField3 = (CurrencyEditText) v.findViewById(R.id.food_price3);
 
+        priceField1.setCurrencySymbol("");
+        priceField2.setCurrencySymbol("");
+        priceField3.setCurrencySymbol("");
+
         //priceField1.setMaxDecimalDigits(0);
         //priceField2.setMaxDecimalDigits(0);
         //priceField3.setMaxDecimalDigits(0);
@@ -87,9 +91,9 @@ public class CustomFragment2 extends Fragment {
         //xxx.add(String.valueOf(priceField1.getValue().doubleValue()));
         //xxx.add(String.valueOf(priceField2.getValue().doubleValue()));
         //xxx.add(String.valueOf(priceField3.getValue().doubleValue()));
-        BigDecimal value1 = priceField1.getNumericValue();
-        BigDecimal value2 = priceField2.getNumericValue();
-        BigDecimal value3 = priceField3.getNumericValue();
+        double value1 = priceField1.getNumericValue();
+        double value2 = priceField2.getNumericValue();
+        double value3 = priceField3.getNumericValue();
 
         xxx.add(String.valueOf(value1));
         xxx.add(String.valueOf(value2));

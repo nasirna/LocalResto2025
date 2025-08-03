@@ -243,7 +243,7 @@ import java.util.Locale;
  * - Configurable currency symbol (via XML attr)
  * - Configurable display of currency symbol (via XML attr)
  * - Provides events for ACTION_DOWN or KEYCODE_ENTER
- * - Public method to get numeric value as BigDecimal
+ * - Public method to get numeric value as double
  */
 public class CurrencyEditText extends AppCompatEditText {
 
@@ -257,6 +257,10 @@ public class CurrencyEditText extends AppCompatEditText {
     private DecimalFormat decimalFormat;
     private boolean isEditing = false;
     private OnDownOrEnterListener onDownOrEnterListener;
+
+
+    private OnEnterKeyListener enterKeyListener;
+    private OnKeyListener keyListener;
 
     public CurrencyEditText(Context context) {
         super(context);
@@ -329,11 +333,16 @@ public class CurrencyEditText extends AppCompatEditText {
     /**
      * Get the numeric value as BigDecimal.
      * @return BigDecimal representation of the input value
-     */
+
     public BigDecimal getNumericValue() {
         String txt = getText() == null ? "" : getText().toString();
         txt = txt.replace(currencySymbol, "").replaceAll("[^\\d.]", "");
         try { return new BigDecimal(txt); } catch (Exception e) { return BigDecimal.ZERO; }
+    }*/
+    public double getNumericValue() {
+        String clean = getText().toString().replaceAll("[^\\d.]", "");
+        if (clean.isEmpty()) return 0.0;
+        return Double.parseDouble(clean) / Math.pow(10, maxDecimalDigits);
     }
 
     public void setMaxDecimalDigits(int digits) {
@@ -355,7 +364,7 @@ public class CurrencyEditText extends AppCompatEditText {
         onDownOrEnterListener = listener;
     }
 
-    @Override
+    /*@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_ENTER || event.getAction() == KeyEvent.ACTION_DOWN) {
             if (onDownOrEnterListener != null) {
@@ -363,6 +372,19 @@ public class CurrencyEditText extends AppCompatEditText {
             }
         }
         return super.onKeyDown(keyCode, event);
+    }*/
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_ENTER && enterKeyListener != null) {
+            enterKeyListener.onEnterPressed();
+            return true;
+        }
+
+        if (keyListener != null) {
+            keyListener.onKeyPressed(keyCode, event);
+        }
+
+        return super.onKeyUp(keyCode, event);
     }
 
     @Override
@@ -374,4 +396,21 @@ public class CurrencyEditText extends AppCompatEditText {
         }
         return super.onTouchEvent(event);
     }
+    // Interfaces for key events
+    public interface OnEnterKeyListener {
+        void onEnterPressed();
+    }
+
+    public interface OnKeyListener {
+        void onKeyPressed(int keyCode, KeyEvent event);
+    }
+
+    public void setOnEnterKeyListener(OnEnterKeyListener listener) {
+        this.enterKeyListener = listener;
+    }
+
+    public void setOnKeyListener(OnKeyListener listener) {
+        this.keyListener = listener;
+    }
+
 }

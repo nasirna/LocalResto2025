@@ -40,6 +40,7 @@ import com.food.localresto.util.PrintReceipt;
 import com.food.localresto.util.Utility;
 import com.google.gson.Gson;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,7 +55,7 @@ import java.util.Set;
 
 import static com.food.localresto.MainActivity.mSeat;
 
-public class OrderConfirmTableActivity extends AppCompatActivity implements View.OnKeyListener {
+public class OrderConfirmTableActivity extends AppCompatActivity {
 
     private BluetoothAdapter bAdapter;
     private String namaToPrint, alamatToPrint, kotaToPrint, Bayar, pajak, disc, footer_struk;
@@ -112,6 +113,9 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
         CurrencyEditText angka_kedua = findViewById(R.id.angka_kedua);
         angka_kedua.setMaxDecimalDigits(0);
         angka_kedua.setCurrencySymbol("");
+
+
+
 
         //bAdapter = BluetoothAdapter.getDefaultAdapter();
         tableSeat = (TextView) findViewById(R.id.tableseat);
@@ -288,6 +292,7 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
 
         //angka_kedua = findViewById(R.id.angka_kedua);
         //angka_kedua.setOnKeyListener(this);
+        //angka_kedua.setOnKeyListener(this);
 
 
         bersihkan = (Button) findViewById(R.id.bersihkan);
@@ -425,12 +430,12 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
                         mSeat = 0;
 
                         double angka1 = Double.parseDouble(String.valueOf(Total));
-                        double d = 999999;
+                        double d = 0;
                         //d = angka_kedua.getValue().doubleValue();
 
-                        //d = Double.parseDouble(angka_kedua.getText().toString());
+                        d = angka_kedua.getNumericValue();
 
-                        //double result = d-angka1;
+                        double result = d-angka1;
 
 
                         PrintReceipt.printBillFromOrder(OrderConfirmTableActivity.this, namaToPrint,alamatToPrint,kotaToPrint,orderId,Tgl,Jam,d,Double.parseDouble(pajak),Double.parseDouble(disc),footer_struk,cartList);
@@ -460,6 +465,29 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
                 }*/
             }
         });
+
+        angka_kedua.setOnEnterKeyListener(() -> {
+            //double value = angka_kedua.getNumericValue();
+            //Log.d("CurrencyValue", "Entered: " + value);
+
+            angka1 = Double.parseDouble(String.valueOf(Total));
+
+            //angka2 = angka_kedua.getValue().doubleValue();
+            angka2 = angka_kedua.getNumericValue();
+
+           // angka2=angka2+10000;
+            result = angka2-angka1;
+            angka_kedua.setText(String.valueOf((int) angka2));
+            hasil.setText("Rp " + String.format("%1$,.0f", Float.valueOf((float) result) ));
+
+        });
+
+        angka_kedua.setOnKeyListener((keyCode, event) -> {
+            if (keyCode == KeyEvent.ACTION_DOWN) {
+                Log.d("KeyEvent", "Delete pressed");
+            }
+        });
+
 
         bt_10rb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -773,6 +801,19 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
 
     }
 
+    /*
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        // Handle key event here
+        if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+            // Do something when Enter is pressed
+            Toast.makeText(this, "Enter pressed", Toast.LENGTH_SHORT).show();
+            return true; // Event handled
+        }
+        return false; // Let others handle the event
+    }*/
+
+/*
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         //CurrencyEditText myEditText = (CurrencyEditText) v;
@@ -783,11 +824,21 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
                 Log.v("AndroidEnterKeyActivity","Enter Key Pressed!");
                 switch (v.getId()) {
                     case R.id.angka_kedua:
-                        double angka1 = Double.parseDouble(String.valueOf(Total));
-                        double d = 0;
-                        d = Double.parseDouble(angka_kedua.getText().toString());
-                        double result = d-angka1;
+                        //double angka1 = Double.parseDouble(String.valueOf(Total));
+                        //double d = 0;
+                        //d = 1000000;
+                        //double result = d-angka1;
+                        //hasil.setText("Rp " + String.format("%1$,.0f", Float.valueOf((float) result) ));
+
+                        angka1 = Double.parseDouble(String.valueOf(Total));
+                        //angka2 = angka_kedua.getNumericValue();
+                        angka2 = Double.parseDouble(String.valueOf(angka_kedua.getNumericValue()));
+
+                        //angka2=angka2+100000;
+                        result = angka2 - angka1;
+                        angka_kedua.setText(String.valueOf((int) angka2));
                         hasil.setText("Rp " + String.format("%1$,.0f", Float.valueOf((float) result) ));
+
                         break;
                 }
                 return true;
@@ -796,9 +847,9 @@ public class OrderConfirmTableActivity extends AppCompatActivity implements View
         }
         return false;
     }
+*/
 
-    /*
-    @Override
+    /*@Override
     public boolean onKey(View view, int keyCode, KeyEvent event) {
         DecimalEditText myEditText = (DecimalEditText) view;
         if ((event.getAction() == KeyEvent.ACTION_DOWN)
